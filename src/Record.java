@@ -1,10 +1,8 @@
 import java.util.Random;
+// imports the java random package to enable random number generation
 import java.util.Scanner;
-// import scanner to get user input
-import java.text.NumberFormat;
-// import number format for display of values later
-import java.util.Locale;
-// import locale package to display currency later
+// imports the scanner package to allow user input
+
 
 public class Record {
     private int RecordID;
@@ -13,70 +11,34 @@ public class Record {
     private double Interest_Rate;
     private int Amount_Remaining;
     private int Time_Left;
-    /* declaring private variables for record ID,
-    customer ID, loan type, interest rate,
-    amount remaining and time left
-    */
 
-    // Getter and setter methods for RecordID
-    public int getRecordID() {
-        return RecordID;
-    }
-
-    public void setRecordID(int recordID) {
-        RecordID = recordID;
-    }
-
-    // Getter and setter methods for CustomerID
+    // Getter and setter methods
     public String getCustomerID() {
         return CustomerID;
     }
 
-    public void setCustomerID(String customerID) {
-        CustomerID = customerID;
+    public int getRecordID() {
+        return RecordID;
     }
 
-    // Getter and setter methods for Loan_Type
     public String getLoan_Type() {
         return Loan_Type;
     }
 
-    public void setLoan_Type(String loan_Type) {
-        Loan_Type = loan_Type;
-    }
-
-    // Getter and setter methods for Interest_Rate
     public double getInterest_Rate() {
         return Interest_Rate;
     }
 
-    public void setInterest_Rate(double interest_Rate) {
-        Interest_Rate = interest_Rate;
-    }
-
-    // Getter and setter methods for Amount_Remaining
     public int getAmount_Remaining() {
         return Amount_Remaining;
     }
-
-    public void setAmount_Remaining(int amount_Remaining) {
-        Amount_Remaining = amount_Remaining;
-    }
-
-    // Getter and setter methods for Time_Left
     public int getTime_Left() {
         return Time_Left;
     }
 
-    public void setTime_Left(int time_Left) {
-        Time_Left = time_Left;
-    }
-
-    // Method to input custom values and validate them
-    public void inputCustomValues() {
+    public void setRecordID() {
         Scanner scanner = new Scanner(System.in);
-
-        // Input Record ID
+        // Scanner object declared
         boolean validInput = false;
         // setting validInput flag to false
         while (!validInput) {
@@ -85,24 +47,27 @@ public class Record {
             String input = scanner.nextLine();
             // user is prompted to input recordID
             if (input.isEmpty()) {
-                RecordID = (int)(Math.random() * 999999) + 1;
+                RecordID = (int) (Math.random() * 999999) + 1;
                 validInput = true;
                 // if input is empty validInput flag is set to true and random values are assigned
             } else if (input.length() == 6 && input.matches("\\d+")) {
                 RecordID = Integer.parseInt(input);
                 validInput = true;
-                /* if the input is 6 characters long and all numbers (validated using regex)
-                the custom value is assigned and
-                validInput flag is set to true */
+            /* if the input is 6 characters long and all numbers (validated using regex)
+            the custom value is assigned and
+            validInput flag is set to true */
             } else {
                 System.out.println("Invalid input. Record ID must be 6 digits.");
                 // if neither of these conditions are true an error message is displayed
             }
         }
+    }
 
-        // Input Customer ID
-        validInput = false;
-        // validInput flag reset to false
+    public void setCustomerID() {
+        Scanner scanner = new Scanner(System.in);
+        // Scanner object declared
+        boolean validInput = false;
+        // validInput flag set to false
         while (!validInput) {
             // while loop is broken if validInput flag becomes true
             System.out.println("Enter Customer ID (3 capital letters followed by 3 digits, leave blank for default):");
@@ -123,10 +88,12 @@ public class Record {
                 // if neither of these conditions are true an error message is displayed
             }
         }
-
-        // Input Loan Type
-        validInput = false;
-        // validInput flag is reset to false
+    }
+    public void setLoanType() {
+        Scanner scanner = new Scanner(System.in);
+        // Scanner object declared
+       boolean validInput = false;
+        // validInput flag is set to false
         while (!validInput) {
             // while loop is broken if validInput flag becomes true
             System.out.println("Enter Loan Type (Auto, Builder, Mortgage, Personal, Other, leave blank for default):");
@@ -164,9 +131,12 @@ public class Record {
             }
         }
 
-        // Input Interest Rate
-        validInput = false;
-        // validInput flag is reset to false
+    }
+    public void setInterestRate() {
+        Scanner scanner = new Scanner(System.in);
+        // Scanner object declared
+        boolean validInput = false;
+        // validInput flag is set to false
         while (!validInput) {
             // while loop is broken if validInput flag becomes true
             System.out.println("Enter Interest Rate (leave blank for default):");
@@ -186,10 +156,12 @@ public class Record {
                 // if the input is not valid an error message is displayed
             }
         }
-
-        // Input Amount Remaining
-        validInput = false;
-        // validInput flag is reset to false
+    }
+    public void setAmountRemaining() {
+        Scanner scanner = new Scanner(System.in);
+        // Scanner object declared
+        boolean validInput = false;
+        // validInput flag is set to false
         while (!validInput) {
             // while loop is broken if validInput flag becomes true
             System.out.println("Enter Amount Remaining (leave blank for default):");
@@ -209,10 +181,12 @@ public class Record {
                 // if the input is not valid and error message is displayed
             }
         }
-
-        // Input Time Left
-        validInput = false;
-        //validInput flag is reset to false
+    }
+    public void setTimeLeft() {
+        Scanner scanner = new Scanner(System.in);
+        // Scanner object declared
+        boolean validInput = false;
+        //validInput flag is set to false
         while (!validInput) {
             // while loop is broken if the validInput flag becomes true
             System.out.println("Enter Time Left (leave blank for default):");
@@ -250,24 +224,6 @@ public class Record {
         }
 
         return sb.toString();
-    }
-    // Method to output record information
-    public void output() {
-        String formattedRecordID = String.format("%06d", RecordID);
-        // this adds leading zeros to the record ID if necessary
-        String formattedInterestRate = String.format("%.2f%%", Interest_Rate);
-        // this adds a % to the end of the interest rate
-        long amountInThousands = Amount_Remaining * 1000;
-        // this multiplies amount remaining by 1000
-        NumberFormat currencyFormat = NumberFormat.getCurrencyInstance(Locale.UK);
-        // this sets the currency format to the UK locale
-        String formattedAmountRemaining = currencyFormat.format(amountInThousands);
-        // this sets the currency format to be in the thousands
-        String timeLeftString = Time_Left + " years";
-        // this adds the year string to the end of time left
-        System.out.printf("%-9s %-12s %-10s %-8s %-13s %-9s\n", formattedRecordID,
-                CustomerID, Loan_Type, formattedInterestRate, formattedAmountRemaining, timeLeftString);
-        // this outputs the data with specific column widths
     }
 }
 
